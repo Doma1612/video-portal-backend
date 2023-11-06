@@ -12,13 +12,15 @@ import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import java.util.List;
 
+import de.videoportal.video.entity.UnterkategorieTO;
+
 @Entity
-@Table(name = "Kategorie")
-public class Kategorie {
+@Table(name = "Unterkategorie")
+public class Unterkategorie {
 
     @Id
-    @SequenceGenerator(name = "KATEGORIE_ID", sequenceName = "KATEGORIE_SEQ_ID", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "KATEGORIE_ID")
+    @SequenceGenerator(name = "UNTERKATEGORIE_ID", sequenceName = "UNTERKATEGORIE_SEQ_ID", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "UNTERKATEGORIE_ID")
     private long id;
 
     private String name;
@@ -27,14 +29,27 @@ public class Kategorie {
     @JoinColumn(name = "THEMA_ID")
     private Thema thema;
 
-    @OneToMany private List<Video> videos;
-
-    public Kategorie(long id, String name, Thema thema, List<Video> videos) {
+    public Unterkategorie(long id, String name, Thema thema) {
         super();
         this.id = id;
         this.name = name;
         this.thema = thema;
-        this.videos = videos;
+    }
+    
+    public Unterkategorie(long id, String name, long tid, String tname, List<Unterkategorie> unterkategorien) {
+        super();
+        this.id = id;
+        this.name = name;
+        this.thema = new Thema(tid,tname,unterkategorien);
+    }
+    
+    public UnterkategorieTO toUnterkategorieTO() {
+    	UnterkategorieTO unterkategorieTO = new UnterkategorieTO();
+    	unterkategorieTO.setId(this.getId());
+    	unterkategorieTO.setName(this.getName());
+    	unterkategorieTO.setThema(this.getThema());
+    	
+    	return unterkategorieTO;
     }
 
     public long getId() {
@@ -61,11 +76,4 @@ public class Kategorie {
         this.thema = thema;
     }
 
-    public List<Video> getVideos() {
-        return videos;
-    }
-
-    public void setVideos(List<Video> videos) {
-        this.videos = videos;
-    }
 }

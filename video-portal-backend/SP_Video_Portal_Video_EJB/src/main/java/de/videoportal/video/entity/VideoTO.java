@@ -21,8 +21,10 @@ public class VideoTO implements Serializable {
 
     long kategorieId;
     String name;
+    
+    long themaid;
+    String themaname;
     Thema thema;
-    List<Video> videos;
 
     public VideoTO() {}
 
@@ -35,8 +37,7 @@ public class VideoTO implements Serializable {
             int anzahlAufrufe,
             long kategorieId,
             String name,
-            Thema thema,
-            List<Video> videos) {
+            Thema thema) {
         super();
         this.videoId = videoId;
         this.titel = titel;
@@ -47,7 +48,30 @@ public class VideoTO implements Serializable {
         this.kategorieId = kategorieId;
         this.name = name;
         this.thema = thema;
-        this.videos = videos;
+    }
+    
+    
+    public VideoTO(
+            long videoId,
+            String titel,
+            String beschreibung,
+            String dateipfad,
+            List<String> metaData,
+            int anzahlAufrufe,
+            long kategorieId,
+            String name,
+            long themaid,
+            String themaname) {
+        super();
+        this.videoId = videoId;
+        this.titel = titel;
+        this.beschreibung = beschreibung;
+        this.dateipfad = dateipfad;
+        this.metaData = metaData;
+        this.anzahlAufrufe = anzahlAufrufe;
+        this.kategorieId = kategorieId;
+        this.name = name;
+        this.thema = new Thema(themaid, themaname);
     }
 
     public Video toVideo() {
@@ -61,8 +85,7 @@ public class VideoTO implements Serializable {
                         this.getAnzahlAufrufe(),
                         this.getKategorieId(),
                         this.getName(),
-                        this.getThema(),
-                        this.getVideos());
+                        this.getThema());
         return video;
     }
 
@@ -138,11 +161,4 @@ public class VideoTO implements Serializable {
         this.thema = thema;
     }
 
-    public List<Video> getVideos() {
-        return videos;
-    }
-
-    public void setVideos(List<Video> videos) {
-        this.videos = videos;
-    }
 }

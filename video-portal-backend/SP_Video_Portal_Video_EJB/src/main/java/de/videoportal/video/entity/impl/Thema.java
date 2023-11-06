@@ -10,6 +10,8 @@ import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import java.util.List;
 
+import de.videoportal.video.entity.ThemaTO;
+
 @Entity
 @Table(name = "Thema")
 public class Thema {
@@ -21,16 +23,32 @@ public class Thema {
 
     private String name;
 
-    @OneToMany(mappedBy = "thema")
-    private List<Kategorie> kategorien;
+    @OneToMany(mappedBy = "Thema")
+    private List<Unterkategorie> unterkategorien;
 
-    public Thema(long id, String name, List<Kategorie> kategorien) {
+    public Thema(long id, String name, List<Unterkategorie> unterkategorien) {
         super();
         this.id = id;
         this.name = name;
-        this.kategorien = kategorien;
+        this.unterkategorien = unterkategorien;
+    }
+    
+    public Thema(long id, String name) {
+    	super();
+    	this.id = id;
+    	this.name = name;
     }
 
+    public ThemaTO toThemaTO() {
+    	ThemaTO themaTo = new ThemaTO();
+    	themaTo.setId(this.getId());
+    	themaTo.setName(this.getName());
+    	themaTo.setUnterkategorien(this.getKategorien());
+    	
+    	return themaTo;
+    	
+    }
+    
     public long getId() {
         return id;
     }
@@ -47,11 +65,11 @@ public class Thema {
         this.name = name;
     }
 
-    public List<Kategorie> getKategorien() {
-        return kategorien;
+    public List<Unterkategorie> getKategorien() {
+        return unterkategorien;
     }
 
-    public void setKategorien(List<Kategorie> kategorien) {
-        this.kategorien = kategorien;
+    public void setKategorien(List<Unterkategorie> unterkategorien) {
+        this.unterkategorien = unterkategorien;
     }
 }

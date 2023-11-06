@@ -7,7 +7,8 @@ import java.util.List;
 
 @Stateless
 public class VideoDAO extends GenericDAO<Video> {
-    public VideoDAO() {
+   
+	public VideoDAO() {
         super(Video.class);
     }
 

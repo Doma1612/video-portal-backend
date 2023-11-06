@@ -32,7 +32,7 @@ public class Video {
 
     @ManyToOne
     @JoinColumn(name = "KATEGORIE_ID")
-    private Kategorie kategorie;
+    private Unterkategorie kategorie;
 
     public Video(
             Long id,
@@ -41,7 +41,7 @@ public class Video {
             String dateipfad,
             List<String> metaData,
             int aufrufZaehler,
-            Kategorie kategorie) {
+            Unterkategorie kategorie) {
         super();
         this.id = id;
         this.titel = titel;
@@ -61,8 +61,7 @@ public class Video {
             int aufrufZaehler,
             long kategorieId,
             String name,
-            Thema thema,
-            List<Video> videos) {
+            Thema thema) {
         super();
         this.id = id;
         this.titel = titel;
@@ -70,7 +69,7 @@ public class Video {
         this.dateipfad = dateipfad;
         this.metaData = metaData;
         this.aufrufZaehler = aufrufZaehler;
-        this.kategorie = new Kategorie(kategorieId, name, thema, videos);
+        this.kategorie = new Unterkategorie(kategorieId, name, thema);
     }
 
     public VideoTO toVideoTO() {
@@ -84,7 +83,6 @@ public class Video {
         videoTO.setKategorieId(this.kategorie.getId());
         videoTO.setName(this.kategorie.getName());
         videoTO.setThema(this.kategorie.getThema());
-        videoTO.setVideos(this.kategorie.getVideos());
 
         return videoTO;
     }
@@ -137,11 +135,11 @@ public class Video {
         this.aufrufZaehler = aufrufZaehler;
     }
 
-    public Kategorie getKategorie() {
+    public Unterkategorie getKategorie() {
         return kategorie;
     }
 
-    public void setKategorie(Kategorie kategorie) {
+    public void setKategorie(Unterkategorie kategorie) {
         this.kategorie = kategorie;
     }
 }
