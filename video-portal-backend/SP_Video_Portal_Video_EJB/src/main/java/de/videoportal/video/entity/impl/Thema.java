@@ -23,8 +23,7 @@ public class Thema {
 
     private String name;
 
-    @OneToMany(mappedBy = "Unterkategorie")
-    private Collection<Unterkategorie> kategorien = new ArrayList<Unterkategorie>();
+    @OneToMany private Collection<Unterkategorie> kategorien = new ArrayList<Unterkategorie>();
 
     public Thema(long id, String name, Collection<Unterkategorie> uks) {
         super();
@@ -40,6 +39,8 @@ public class Thema {
 
         return themaTo;
     }
+
+    public Thema() {}
 
     public long getThemaId() {
         return themaId;
