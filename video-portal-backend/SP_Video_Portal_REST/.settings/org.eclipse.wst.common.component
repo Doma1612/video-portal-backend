@@ -19,8 +19,12 @@
         
         
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/target/generated-sources/annotations"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/target/generated-test-sources/test-annotations"/>
+        <dependent-module archiveName="user_ejb-1.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/SP_Video_Portal_User_EJB/SP_Video_Portal_User_EJB">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="video_ejb-1.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/SP_Video_Portal_Video_EJB/SP_Video_Portal_Video_EJB">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
                                 
         
         
