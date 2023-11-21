@@ -1,16 +1,14 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <artifactId>video-portal-backend</artifactId>
-    <groupId>sp</groupId>
-    <version>0.0.1-SNAPSHOT</version>
+   <parent>
+	  <groupId>sp</groupId>
+	  <artifactId>video-portal-backend</artifactId>
+	  <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <artifactId>SP_Video_Portal_User_EJB</artifactId>
-
-  <name>SP_Video_Portal_User_EJB</name>
-  <!-- FIXME change it to the project's website -->
-  <url>http://www.example.com</url>
+  
+  <artifactId>user_ejb</artifactId>
+  <version>1.0</version>
+  <packaging>jar</packaging>
 
 	<properties>
 	    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -19,7 +17,7 @@
         <payaramicro.maven.plugin.version>2.0</payaramicro.maven.plugin.version>
         <payaraVersion>6.2023.3</payaraVersion>
 	</properties>
-
+	
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -85,11 +83,6 @@
 			<version>4.0.2</version>
 		</dependency>
 		
-		<dependency>
-    <groupId>org.apache.maven.plugins</groupId>
-    <artifactId>maven-resources-plugin</artifactId>
-    <version>3.2.0</version>
-</dependency>
 
   </dependencies>
 
