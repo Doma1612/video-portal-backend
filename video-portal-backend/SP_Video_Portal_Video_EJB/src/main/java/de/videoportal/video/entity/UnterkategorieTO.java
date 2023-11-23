@@ -12,6 +12,8 @@ public class UnterkategorieTO {
 
     ThemaTO thema;
 
+    public UnterkategorieTO() {}
+
     public UnterkategorieTO(long id, String name, ThemaTO thema) {
         this.unterkategorieId = id;
         this.name = name;

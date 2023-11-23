@@ -11,7 +11,7 @@ import java.util.Map.Entry;
 
 public abstract class GenericDAO<T> {
 
-    private final String UNIT_NAME = "SP_Video_DS";
+    private final String UNIT_NAME = "SP_DS_Video";
 
     @PersistenceContext(unitName = UNIT_NAME)
     private EntityManager em;

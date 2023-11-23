@@ -9,7 +9,7 @@ import jakarta.inject.Inject;
 @Stateless
 public class UserFacadeImp implements IUserFacade {
 
-    @Inject private UserDAO userDAO;
+    @Inject UserDAO userDAO;
 
     public User findUserByName(String name) {
         return userDAO.findUserByName(name);

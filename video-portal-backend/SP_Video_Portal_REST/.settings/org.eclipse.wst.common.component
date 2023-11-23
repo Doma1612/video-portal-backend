@@ -1,22 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
-        
+                
+    
+    
     <wb-module deploy-name="SP_Video_Portal_REST-0.0.1-SNAPSHOT">
-                
+                                
+        
+        
         <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
-                
+                                
+        
+        
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
-                
+                                
+        
+        
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
-                
+                                
+        
+        
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
-        <dependent-module archiveName="SP_Video_Portal_Video_EJB-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/SP_Video_Portal_Video_EJB/SP_Video_Portal_Video_EJB">
+        <dependent-module archiveName="user_ejb-1.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/SP_Video_Portal_User_EJB/SP_Video_Portal_User_EJB">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-                
+        <dependent-module archiveName="video_ejb-1.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/SP_Video_Portal_Video_EJB/SP_Video_Portal_Video_EJB">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+                                
+        
+        
         <property name="context-root" value="SP_Video_Portal_REST"/>
-                
+                                
+        
+        
         <property name="java-output-path" value="/SP_Video_Portal_REST/target/classes"/>
-            
-    </wb-module>
+                            
     
+    
+    </wb-module>
+            
+
+
 </project-modules>
