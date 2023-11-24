@@ -2,9 +2,11 @@
 package de.video.security.dao;
 
 import de.video.security.entity.User;
+import jakarta.ejb.Stateless;
 import java.util.HashMap;
 import java.util.Map;
 
+@Stateless
 public class UserDAO extends GenericDAO<User> {
 
     public UserDAO() {

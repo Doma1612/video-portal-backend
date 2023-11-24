@@ -1,4 +1,3 @@
-<?xml version="1.0"?>
 <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
@@ -82,7 +81,7 @@
 		<version>3.3.0</version>
         </dependency>
 
-		<dependency>
+	<!-- 	<dependency>
 			<groupId>sp</groupId>
 			<artifactId>SP_Video_Portal_User_EJB</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
@@ -91,8 +90,27 @@
 			<groupId>sp</groupId>
 			<artifactId>SP_Video_Portal_Video_EJB</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
+		</dependency> -->
 
+		<!-- Postgres Treiber -->
+		
+			<dependency>
+		    <groupId>org.postgresql</groupId>
+		    <artifactId>postgresql</artifactId>
+		    <version>42.6.0</version>
+			</dependency>
+		
+		<dependency>
+			<groupId>sp</groupId>
+			<artifactId>user_ejb</artifactId>
+			<version>1.0</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>sp</groupId>
+			<artifactId>video_ejb</artifactId>
+			<version>1.0</version>
+		</dependency>
 
 	</dependencies>
 

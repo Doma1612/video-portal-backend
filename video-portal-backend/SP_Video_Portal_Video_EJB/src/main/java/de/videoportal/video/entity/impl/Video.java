@@ -38,6 +38,8 @@ public class Video {
     @Column(name = "unterkategorieId")
     private Collection<Long> unterKategorien;
 
+    public Video() {}
+
     public Video(
             Long id,
             String titel,

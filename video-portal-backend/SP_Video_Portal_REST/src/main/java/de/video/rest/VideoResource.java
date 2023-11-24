@@ -1,7 +1,12 @@
 /* (C)2023 */
 package de.video.rest;
 
+<<<<<<< HEAD
 import de.videoportal.video.entity.VideoTO;
+=======
+import de.video.security.JWTTokenNeeded;
+import de.video.security.Role;
+>>>>>>> main
 import jakarta.ejb.Stateless;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.POST;

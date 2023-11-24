@@ -42,6 +42,8 @@ public class Unterkategorie {
         this.thema = new Thema(tid, tname, unterkategorien);
     }
 
+    public Unterkategorie() {}
+
     public UnterkategorieTO toUnterkategorieTO() {
         UnterkategorieTO unterkategorieTO =
                 new UnterkategorieTO(
