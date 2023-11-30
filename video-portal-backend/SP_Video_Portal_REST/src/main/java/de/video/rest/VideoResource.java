@@ -5,6 +5,8 @@ import de.video.security.JWTTokenNeeded;
 import de.video.security.Role;
 import de.videoportal.video.entity.ThemaTO;
 import de.videoportal.video.entity.UnterkategorieTO;
+import de.videoportal.video.entity.VideoTO;
+import de.videoportal.video.usecase.IAufrufeZaehlen;
 import de.videoportal.video.usecase.IThemaVerwalten;
 import de.videoportal.video.usecase.IUnterkategorieVerwalten;
 import jakarta.ejb.Stateless;
@@ -27,6 +29,8 @@ public class VideoResource {
     @Inject IThemaVerwalten themaVerwalten;
 
     @Inject IUnterkategorieVerwalten uKategorieVerwalten;
+    
+    @Inject IAufrufeZaehlen aufrufeZaehlen;
 
     @POST
     @Path("aufrufeZaehlen/{videoId}")
@@ -51,6 +55,8 @@ public class VideoResource {
 
         return Response.ok().build();
     }
+    
+    // Themen verwalten
 
     @POST
     @Path("themaAnlegen")
@@ -74,6 +80,8 @@ public class VideoResource {
         themaVerwalten.themaLoeschen(id);
         return Response.ok().build();
     }
+    
+    // Unterkategorien verwalten
 
     @POST
     @Path("uKategorieAnlegen")
@@ -98,4 +106,19 @@ public class VideoResource {
         uKategorieVerwalten.unterkategorieLoeschen(id);
         return Response.ok().build();
     }
+    
+    // Videos verwalten
+    
+    @POST
+    @Path("videoAufrufeZahlen")
+    public Response videoAufrufe(VideoTO videoTO) {
+      //  try {
+            aufrufeZaehlen.aufrufeVideoUpdaten(videoTO);
+            return Response.ok().build();
+     //   } catch (Exception e) {
+       //     return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        //}
+    }
+
+    
 }
