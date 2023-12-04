@@ -29,7 +29,7 @@ public class VideoResource {
     @Inject IThemaVerwalten themaVerwalten;
 
     @Inject IUnterkategorieVerwalten uKategorieVerwalten;
-    
+
     @Inject IAufrufeZaehlen aufrufeZaehlen;
 
     @POST
@@ -55,7 +55,7 @@ public class VideoResource {
 
         return Response.ok().build();
     }
-    
+
     // Themen verwalten
 
     @POST
@@ -80,7 +80,7 @@ public class VideoResource {
         themaVerwalten.themaLoeschen(id);
         return Response.ok().build();
     }
-    
+
     // Unterkategorien verwalten
 
     @POST
@@ -106,19 +106,17 @@ public class VideoResource {
         uKategorieVerwalten.unterkategorieLoeschen(id);
         return Response.ok().build();
     }
-    
+
     // Videos verwalten
-    
+
     @POST
     @Path("videoAufrufeZahlen")
     public Response videoAufrufe(VideoTO videoTO) {
-      //  try {
-            aufrufeZaehlen.aufrufeVideoUpdaten(videoTO);
-            return Response.ok().build();
-     //   } catch (Exception e) {
-       //     return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
-        //}
+        //  try {
+        aufrufeZaehlen.aufrufeVideoUpdaten(videoTO);
+        return Response.ok().build();
+        //   } catch (Exception e) {
+        //     return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        // }
     }
-
-    
 }

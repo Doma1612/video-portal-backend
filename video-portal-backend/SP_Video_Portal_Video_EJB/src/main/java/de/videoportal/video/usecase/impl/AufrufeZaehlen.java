@@ -1,3 +1,4 @@
+/* (C)2023 */
 package de.videoportal.video.usecase.impl;
 
 import de.videoportal.video.dao.VideoDAO;
@@ -8,22 +9,21 @@ import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 
 @Stateless
-public class AufrufeZaehlen implements IAufrufeZaehlen{
-	
-	@Inject VideoDAO videoDAO;
+public class AufrufeZaehlen implements IAufrufeZaehlen {
 
-	@Override
-	public void aufrufeVideoUpdaten(VideoTO videoTO) {
-		Video video = videoDAO.find(videoTO.getVideoId());
-		video.setAufrufZaehler(videoTO.getAnzahlAufrufe()+ 1);
-	
-		videoDAO.update(video);
-	}
+    @Inject VideoDAO videoDAO;
 
-	@Override
-	public void aufrufeVideoLaden(VideoTO videoTO) {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void aufrufeVideoUpdaten(VideoTO videoTO) {
+        Video video = videoDAO.find(videoTO.getVideoId());
+        video.setAufrufZaehler(videoTO.getAnzahlAufrufe() + 1);
 
+        videoDAO.update(video);
+    }
+
+    @Override
+    public void aufrufeVideoLaden(VideoTO videoTO) {
+        // TODO Auto-generated method stub
+
+    }
 }
