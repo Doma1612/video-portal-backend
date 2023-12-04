@@ -143,7 +143,6 @@ public class VideoResource {
 
     @GET
     @Path("ladeVideo/{id}")
-    // @JWTTokenNeeded(Permissions = Role.ADMIN)
     public OutputStream ladeVideosNachSuche(@PathParam("id") long id) {
         byte[] videoBytes = videoLoader.ladeVideo(id);
         OutputStream outputStream = new ByteArrayOutputStream();
@@ -158,7 +157,6 @@ public class VideoResource {
 
     @GET
     @Path("ladeVideosNachSuche/{stichwoerter}")
-    // @JWTTokenNeeded(Permissions = Role.ADMIN)
     public List<VideoTO> ladeVideosNachSuche(@PathParam("stichwoerter") String stichwoerter) {
         return videoLoader.ladeVideosNachSuche(stichwoerter);
     }
