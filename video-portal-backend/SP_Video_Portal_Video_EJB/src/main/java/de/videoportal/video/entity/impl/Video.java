@@ -132,7 +132,7 @@ public class Video {
         return aufrufZaehler;
     }
 
-    public void setAufrufZaehlerPlusOne(int aufrufZaehler) {
+    public void setAufrufZaehlerPlusOne() {
         this.aufrufZaehler++;
     }
 
