@@ -6,11 +6,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
-import java.util.ArrayList;
-import java.util.Collection;
 
 @Entity
 @Table(name = "Thema")
@@ -23,13 +20,10 @@ public class Thema {
 
     private String name;
 
-    @OneToMany private Collection<Unterkategorie> kategorien = new ArrayList<Unterkategorie>();
-
-    public Thema(long id, String name, Collection<Unterkategorie> uks) {
+    public Thema(long id, String name) {
         super();
         this.themaId = id;
         this.name = name;
-        this.kategorien = uks;
     }
 
     public ThemaTO toThemaTO() {
@@ -56,21 +50,5 @@ public class Thema {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Collection<Unterkategorie> getKategorien() {
-        return kategorien;
-    }
-
-    public void setKategorien(Collection<Unterkategorie> kategorien) {
-        this.kategorien = kategorien;
-    }
-
-    public void addUnterkategorie(Unterkategorie uK) {
-        this.kategorien.add(uK);
-    }
-
-    public void removeUnterkategorie(Unterkategorie uK) {
-        this.kategorien.remove(uK);
     }
 }

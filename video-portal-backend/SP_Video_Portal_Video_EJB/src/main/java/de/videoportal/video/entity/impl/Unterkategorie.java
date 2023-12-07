@@ -9,7 +9,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
-import java.util.List;
 
 @Entity
 @Table(name = "Unterkategorie")
@@ -34,12 +33,11 @@ public class Unterkategorie {
         this.thema = thema;
     }
 
-    public Unterkategorie(
-            long id, String name, long tid, String tname, List<Unterkategorie> unterkategorien) {
+    public Unterkategorie(long id, String name, long tid, String tname) {
         super();
         this.unterkategorieId = id;
         this.name = name;
-        this.thema = new Thema(tid, tname, unterkategorien);
+        this.thema = new Thema(tid, tname);
     }
 
     public Unterkategorie() {}
