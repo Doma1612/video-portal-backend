@@ -3,9 +3,7 @@ package de.videoportal.video.usecase.impl;
 
 import de.videoportal.video.dao.ThemaDAO;
 import de.videoportal.video.entity.ThemaTO;
-import de.videoportal.video.entity.UnterkategorieTO;
 import de.videoportal.video.entity.impl.Thema;
-import de.videoportal.video.entity.impl.Unterkategorie;
 import de.videoportal.video.usecase.IThemaVerwalten;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
@@ -28,14 +26,6 @@ public class ThemaVerwalten implements IThemaVerwalten {
     public void themaUpdaten(ThemaTO themaTO) {
         Thema thema = themaDAO.find(themaTO.getId());
         thema.setName(themaTO.getName());
-
-        Collection<UnterkategorieTO> kategorienTO = themaTO.getUnterkategorien();
-        Collection<Unterkategorie> kategorien = new ArrayList<Unterkategorie>();
-
-        for (UnterkategorieTO k : kategorienTO) {
-            kategorien.add(k.toUnterkategorie());
-        }
-        thema.setKategorien(kategorien);
 
         themaDAO.update(thema);
     }

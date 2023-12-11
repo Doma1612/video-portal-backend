@@ -1,15 +1,9 @@
 /* (C)2023 */
 package de.video.security;
 
-import static jakarta.ws.rs.core.HttpHeaders.AUTHORIZATION;
-import static jakarta.ws.rs.core.Response.Status.UNAUTHORIZED;
-
-import de.video.jwt.KeyGenerator;
 import de.video.jwt.LogbackLogger;
 import de.video.security.entity.User;
 import de.video.security.facade.IUserFacade;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.Consumes;
@@ -20,9 +14,6 @@ import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.UriInfo;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
 import java.util.logging.Logger;
 
 @Path("/users")
@@ -32,8 +23,6 @@ import java.util.logging.Logger;
 public class UserService {
 
     @Inject private IUserFacade userFacade;
-
-    @Inject private KeyGenerator keyGenerator;
 
     @Context private UriInfo uriInfo;
 
@@ -51,30 +40,25 @@ public class UserService {
     @Path("/login")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response authenticateUser3(Credentials credential) {
-
-        System.out.println(
-                "login called with login: "
-                        + credential.getUsername()
-                        + " password: "
-                        + credential.getPassword());
-        User user = null;
+    public Response login(Credentials credentials) {
+        System.out.println("login called with login: " + credentials.getUsername());
+        User user;
         try {
-            user = authenticate(credential.getUsername(), credential.getPassword());
+            user = authenticate(credentials.getUsername(), credentials.getPassword());
         } catch (Exception e) {
-            return Response.status(UNAUTHORIZED).build();
+            return Response.status(Response.Status.UNAUTHORIZED).build();
         }
-        String token = issueToken(user);
-        logger.info("### token =" + token);
-        return Response.ok().header(AUTHORIZATION, "Bearer " + token).build();
+
+        return Response.ok("Benutzer erfolgreich authentifiziert").build();
     }
 
     private User authenticate(String username, String password) throws Exception {
-
         User aUser = userFacade.findUserByName(username);
-        System.out.println(
-                "authenticate called with username: " + username + " password: " + password);
-        System.out.println("Loggd in User=" + aUser.getUsername());
+        if (aUser == null) {
+            throw new SecurityException("Benutzer nicht gefunden");
+        }
+        System.out.println("authenticate called with username: " + username);
+        System.out.println("Logged in User=" + aUser.getUsername());
 
         PlainSHA512PasswordHash hashAlgo = new PlainSHA512PasswordHash();
         if (aUser.getPassword().equals(hashAlgo.generate(password.toCharArray()))) {
@@ -82,33 +66,40 @@ public class UserService {
             logger.info(aUser.toString());
             return aUser;
         } else {
-            System.out.println(
-                    "Falsches Kennwort: "
-                            + aUser.getPassword()
-                            + " uebergebener Wert:"
-                            + hashAlgo.generate(password.toCharArray()));
+            System.out.println("Falsches Kennwort für Benutzer: " + aUser.getUsername());
             throw new SecurityException("Falscher Benutzername/Kennwort");
         }
     }
 
-    @SuppressWarnings("deprecation")
-    private String issueToken(User user) {
-        byte[] secret = keyGenerator.generateKey();
-        logger.info("key= " + secret.toString());
+    @POST
+    @Path("/register")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response registerUser(Credentials credentials) {
+        try {
+            // Überprüfen, ob der Benutzer bereits existiert
+            User existingUser = userFacade.findUserByName(credentials.getUsername());
+            if (existingUser != null) {
+                return Response.status(Response.Status.CONFLICT)
+                        .entity("Benutzername bereits vergeben")
+                        .build();
+            }
 
-        String jws =
-                Jwts.builder()
-                        .setIssuer(uriInfo.getAbsolutePath().toString())
-                        .setSubject(user.getUsername())
-                        .claim("Roles", user.getRoles().toString())
-                        .setIssuedAt(new Date())
-                        .setExpiration(toDate(LocalDateTime.now().plusMinutes(15L)))
-                        .signWith(SignatureAlgorithm.HS256, secret)
-                        .compact();
-        return jws;
-    }
+            // Erstellen eines neuen Benutzerobjekts
+            User newUser = new User();
+            newUser.setUsername(credentials.getUsername());
+            PlainSHA512PasswordHash hashAlgo = new PlainSHA512PasswordHash();
+            newUser.setPassword(hashAlgo.generate(credentials.getPassword().toCharArray()));
+            newUser.setRolle(0);
 
-    private Date toDate(LocalDateTime localDateTime) {
-        return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
+            // Speichern des neuen Benutzers in der Datenbank
+            userFacade.userAnlegen(newUser);
+
+            return Response.ok("Benutzer erfolgreich registriert").build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity("Registrierungsfehler")
+                    .build();
+        }
     }
 }
