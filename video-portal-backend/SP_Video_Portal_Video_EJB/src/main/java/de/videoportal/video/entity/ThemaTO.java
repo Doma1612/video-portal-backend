@@ -22,6 +22,7 @@ public class ThemaTO {
     }
 
     public Thema toThema() {
+
         List<Unterkategorie> uks = new ArrayList<Unterkategorie>();
         for (UnterkategorieTO uk : this.unterkategorien) {
             uks.add(uk.toUnterkategorie());

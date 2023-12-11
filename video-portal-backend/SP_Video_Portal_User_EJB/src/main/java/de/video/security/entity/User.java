@@ -1,18 +1,14 @@
 /* (C)2023 */
 package de.video.security.entity;
 
-import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
-import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 import java.io.Serializable;
-import java.util.List;
 
 @Entity
 @Table(name = "SP_t_user")
@@ -34,11 +30,15 @@ public class User implements Serializable {
 
     private String password;
 
-    @ElementCollection
-    @CollectionTable(
-            name = "SP_t_user_roles",
-            joinColumns = @JoinColumn(name = "username", referencedColumnName = "username"))
-    List<String> rolename;
+    private int rolle;
+
+    public User(long id, String username, String password, int rolle) {
+        super();
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.rolle = rolle;
+    }
 
     public User() {}
 
@@ -81,14 +81,11 @@ public class User implements Serializable {
         return false;
     }
 
-    public List<String> getRoles() {
-        return this.rolename;
+    public int getRolle() {
+        return rolle;
     }
 
-    public String toString() {
-        String str = String.valueOf(this.id) + " " + this.username + " Roles[";
-        for (String aStr : this.rolename) str = str + aStr + " ";
-        str = str + "]";
-        return str;
+    public void setRolle(int rolle) {
+        this.rolle = rolle;
     }
 }
