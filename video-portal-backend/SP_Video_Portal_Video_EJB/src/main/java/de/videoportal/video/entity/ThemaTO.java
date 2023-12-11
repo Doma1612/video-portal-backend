@@ -1,7 +1,11 @@
 /* (C)2023 */
 package de.videoportal.video.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import de.videoportal.video.entity.impl.Thema;
+import de.videoportal.video.entity.impl.Unterkategorie;
 
 public class ThemaTO {
 
@@ -9,16 +13,21 @@ public class ThemaTO {
 
     long id;
     String name;
+    List<UnterkategorieTO> unterkategorien;
 
     public ThemaTO(long id, String name) {
         super();
         this.id = id;
         this.name = name;
-    }
+           }
 
     public Thema toThema() {
 
-        Thema thema = new Thema(this.getId(), this.getName());
+        List<Unterkategorie> uks = new ArrayList<Unterkategorie>();
+        for (UnterkategorieTO uk : this.unterkategorien) {
+            uks.add(uk.toUnterkategorie());
+        }
+        Thema thema = new Thema(this.getId(), this.getName(), uks);
         return thema;
     }
 
@@ -39,4 +48,14 @@ public class ThemaTO {
     public void setName(String name) {
         this.name = name;
     }
+    
+    public List<UnterkategorieTO> getUnterkategorien() {
+        return unterkategorien;
+    }
+
+    public void setUnterkategorien(List<UnterkategorieTO> unterkategorien) {
+
+        this.unterkategorien = unterkategorien;
+    }
+    
 }

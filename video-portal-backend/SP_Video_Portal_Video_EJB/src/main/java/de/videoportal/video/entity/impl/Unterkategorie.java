@@ -1,6 +1,8 @@
 /* (C)2023 */
 package de.videoportal.video.entity.impl;
 
+import java.util.List;
+
 import de.videoportal.video.entity.UnterkategorieTO;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -33,11 +35,11 @@ public class Unterkategorie {
         this.thema = thema;
     }
 
-    public Unterkategorie(long id, String name, long tid, String tname) {
+    public Unterkategorie(long id, String name, long tid, String tname, List<Unterkategorie> unterkategorien) {
         super();
         this.unterkategorieId = id;
         this.name = name;
-        this.thema = new Thema(tid, tname);
+        this.thema = new Thema(tid, tname, unterkategorien);
     }
 
     public Unterkategorie() {}
