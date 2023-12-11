@@ -1,9 +1,6 @@
 /* (C)2023 */
 package de.videoportal.video.entity.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 import de.videoportal.video.entity.ThemaTO;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,6 +9,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Entity
 @Table(name = "Thema")
@@ -23,7 +22,7 @@ public class Thema {
     private long themaId;
 
     private String name;
-    
+
     @OneToMany private Collection<Unterkategorie> kategorien = new ArrayList<Unterkategorie>();
 
     public Thema(long id, String name, Collection<Unterkategorie> uks) {
@@ -37,7 +36,6 @@ public class Thema {
         ThemaTO themaTo = new ThemaTO();
         themaTo.setId(this.getThemaId());
         themaTo.setName(this.getName());
-     
 
         return themaTo;
     }
@@ -59,6 +57,7 @@ public class Thema {
     public void setName(String name) {
         this.name = name;
     }
+
     public Collection<Unterkategorie> getKategorien() {
         return kategorien;
     }

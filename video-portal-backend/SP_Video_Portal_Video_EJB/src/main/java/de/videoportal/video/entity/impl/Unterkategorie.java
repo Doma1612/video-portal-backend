@@ -1,8 +1,6 @@
 /* (C)2023 */
 package de.videoportal.video.entity.impl;
 
-import java.util.List;
-
 import de.videoportal.video.entity.UnterkategorieTO;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,6 +9,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import java.util.List;
 
 @Entity
 @Table(name = "Unterkategorie")
@@ -35,7 +34,8 @@ public class Unterkategorie {
         this.thema = thema;
     }
 
-    public Unterkategorie(long id, String name, long tid, String tname, List<Unterkategorie> unterkategorien) {
+    public Unterkategorie(
+            long id, String name, long tid, String tname, List<Unterkategorie> unterkategorien) {
         super();
         this.unterkategorieId = id;
         this.name = name;
