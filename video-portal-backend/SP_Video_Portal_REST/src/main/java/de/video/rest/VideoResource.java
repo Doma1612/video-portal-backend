@@ -72,8 +72,6 @@ public class VideoResource {
         return (List<ThemaTO>) themaVerwalten.ladeAlleThemen();
     }
 
-    // Unterkategorien verwalten
-
     @POST
     @Path("uKategorieAnlegen")
     // @JWTTokenNeeded(Permissions = Role.ADMIN)
@@ -119,14 +117,11 @@ public class VideoResource {
             InputStream videoStream) {
         byte[] videoBytes = null;
         try {
-            videoBytes =
-                    IOUtils.toByteArray(videoStream); // IOUtils aus Apache Commons IO verwenden
+            videoBytes = IOUtils.toByteArray(videoStream);
             logger.warning("Videobytes wurden eingelesen");
         } catch (IOException e) {
             e.printStackTrace();
-            // Handle Fehler beim Lesen des Streams
         }
-        // interface aufrufen und video in Usecase konvertieren und speichern.
         boolean anlegenUndKonvertierenHatGeklappt =
                 converter.empfangeVideoDaten(
                         dateiEndung, titel, thema, stichwoerter, unterkategorien, videoBytes);

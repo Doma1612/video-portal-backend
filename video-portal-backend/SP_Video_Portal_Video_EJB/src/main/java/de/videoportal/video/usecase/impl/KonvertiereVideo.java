@@ -1,6 +1,7 @@
 /* (C)2023 */
 package de.videoportal.video.usecase.impl;
 
+import de.videoportal.video.dao.ThemaDAO;
 import de.videoportal.video.dao.UnterkategorieDAO;
 import de.videoportal.video.dao.VideoDAO;
 import de.videoportal.video.entity.impl.Thema;
@@ -21,27 +22,40 @@ public class KonvertiereVideo implements IKonvertiereVideo {
 
     @Inject VideoDAO videoDAO;
     @Inject UnterkategorieDAO unterkategorieDAO;
+    @Inject ThemaDAO themaDAO;
     private static final Logger logger = Logger.getLogger(KonvertiereVideo.class.getName());
 
     @Override
     public boolean empfangeVideoDaten(
             String dateiEndung,
             String titel,
-            String thema,
+            String themaString,
             String stichwoerter,
             String unterkategorien,
             byte[] videoBytes) {
-        // Videobjekt erstellen und befüllen
+        logger.warning(dateiEndung);
+        logger.warning(titel);
+        logger.warning(themaString);
+        logger.warning(stichwoerter);
+        logger.warning(unterkategorien);
+
+        // Videobjekt erstellen und befuellen
         Video v = new Video();
         String vidTitel = titel + "." + dateiEndung;
         vidTitel = vidTitel.replace(" ", "_");
         // Leerzeichen im Titel für das Speichern auf der VM durch _ austauschen.
         // Beim spaeteren Auslesen wieder replace anwenden!
         v.setTitel(vidTitel);
-        Thema t = new Thema();
-        t.setName(thema);
+        Thema thema = null;
+        List<Thema> themen = themaDAO.findAll();
+        for (Thema t : themen) {
+            if (t.getName().toLowerCase().equals(themaString.toLowerCase())) {
+                thema = t;
+            }
+        }
+
         v.setMetaData(stichwoerter);
-        v.setThema(t);
+        v.setThema(thema);
         String[] unterKategorienArray = unterkategorien.split(",\\s*");
         List<Unterkategorie> allUks = unterkategorieDAO.findAll();
         List<String> unterKategorienArrayList = new ArrayList<>(List.of(unterKategorienArray));
@@ -70,9 +84,13 @@ public class KonvertiereVideo implements IKonvertiereVideo {
         String inputFilePath =
                 String.format(
                         "/home/kuehling/Dokumente/sp_videos/initial_upload/%d/%s",
-                        v.getId(), v.getDateipfad());
+                        v.getId(), v.getTitel());
         String outputFilePath = inputFilePath.replace("." + dateiEndung, ".webm");
         outputFilePath = outputFilePath.replace("initial_upload", "converted");
+        logger.warning("Lege Ordnerstrukturen an fuer: " + inputFilePath);
+        legeOrdnerStrukturAn(inputFilePath);
+        logger.warning("Lege Ordnerstrukturen an fuer: " + outputFilePath);
+        legeOrdnerStrukturAn(outputFilePath);
         // bytes in Datei schreiben.
         FileOutputStream out;
         try {
@@ -83,18 +101,14 @@ public class KonvertiereVideo implements IKonvertiereVideo {
             e.printStackTrace();
         }
 
-        String ffmpegPath =
-                System.getProperty("user.dir")
-                        + "/src/main/resources/ffmpeg"; // Passe dies entsprechend an
-
+        String ffmpegPath = "/home/kuehling/Dokumente/sp_videos/ffmpeg";
+        logger.warning("Pfad zur ffmpeg datei: " + ffmpegPath);
         // Baue den Befehl für FFmpeg
         String[] command = {ffmpegPath, "-i", inputFilePath, outputFilePath};
-        legeOrdnerStrukturAn(inputFilePath);
-        legeOrdnerStrukturAn(outputFilePath);
         try {
             logger.warning("Konvertierung des folgenden Videos steht bevor: " + inputFilePath);
             Runtime.getRuntime().exec(command);
-            // Konvertieren Pfad im Videoobjekt hinterlegen und in der DB aktualisieren.
+            // Konvertierten Pfad im Videoobjekt hinterlegen und in der DB aktualisieren.
             v.setDateipfad(outputFilePath);
             videoDAO.update(v);
             return true;

@@ -18,6 +18,7 @@ public class ThemaTO {
         super();
         this.id = id;
         this.name = name;
+        this.unterkategorien = new ArrayList<>();
     }
 
     public Thema toThema() {
@@ -25,7 +26,8 @@ public class ThemaTO {
         for (UnterkategorieTO uk : this.unterkategorien) {
             uks.add(uk.toUnterkategorie());
         }
-        Thema thema = new Thema(this.getId(), this.getName(), uks);
+        Thema thema = new Thema(this.getId(), this.getName());
+        thema.setKategorien(uks);
         return thema;
     }
 
