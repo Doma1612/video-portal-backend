@@ -3,7 +3,7 @@ package de.videoportal.video.dao;
 
 import de.videoportal.video.entity.impl.Unterkategorie;
 import jakarta.ejb.Stateless;
-import java.util.Collection;
+import java.util.List;
 
 @Stateless
 public class UnterkategorieDAO extends GenericDAO<Unterkategorie> {
@@ -12,15 +12,23 @@ public class UnterkategorieDAO extends GenericDAO<Unterkategorie> {
         super(Unterkategorie.class);
     }
 
-    public void save(Unterkategorie unterk) {
-        super.save(unterk);
+    public void save(Unterkategorie aUnterkategorie) {
+        super.save(aUnterkategorie);
     }
 
-    public void delete(Unterkategorie unterk) {
-        super.delete(unterk.getUnterkategorieId(), Unterkategorie.class);
+    public boolean delete(long aUnterkategorieId) {
+        return super.delete(aUnterkategorieId, Unterkategorie.class);
     }
 
-    public Collection<Unterkategorie> unterkategorienLaden() {
+    public void update(Unterkategorie aUnterkategorie) {
+        super.update(aUnterkategorie);
+    }
+
+    public List<Unterkategorie> findAll() {
+        return super.findAll();
+    }
+
+    public List<Unterkategorie> findAllUnterKategorien() {
         return super.findAll();
     }
 }

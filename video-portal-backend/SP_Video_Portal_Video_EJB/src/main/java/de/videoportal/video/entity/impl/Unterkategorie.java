@@ -39,7 +39,8 @@ public class Unterkategorie {
         super();
         this.unterkategorieId = id;
         this.name = name;
-        this.thema = new Thema(tid, tname, unterkategorien);
+        this.thema = new Thema(tid, tname);
+        thema.setKategorien(unterkategorien);
     }
 
     public Unterkategorie() {}

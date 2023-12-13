@@ -33,8 +33,7 @@ public class UnterkategorieVerwalten implements IUnterkategorieVerwalten {
 
     @Override
     public void unterkategorieLoeschen(long unterkategorieId) {
-        Unterkategorie kategorie = kategorieDAO.find(unterkategorieId);
-        kategorieDAO.delete(kategorie);
+        kategorieDAO.delete(unterkategorieId);
     }
 
     @Override

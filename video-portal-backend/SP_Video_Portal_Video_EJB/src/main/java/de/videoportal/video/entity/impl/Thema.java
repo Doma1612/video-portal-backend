@@ -2,6 +2,7 @@
 package de.videoportal.video.entity.impl;
 
 import de.videoportal.video.entity.ThemaTO;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,13 +24,14 @@ public class Thema {
 
     private String name;
 
-    @OneToMany private Collection<Unterkategorie> kategorien = new ArrayList<Unterkategorie>();
+    @OneToMany(mappedBy = "Thema", cascade = CascadeType.PERSIST)
+    private Collection<Unterkategorie> kategorien = new ArrayList<Unterkategorie>();
 
-    public Thema(long id, String name, Collection<Unterkategorie> uks) {
+    public Thema(long id, String name) {
         super();
         this.themaId = id;
         this.name = name;
-        this.kategorien = uks;
+        this.kategorien = new ArrayList<Unterkategorie>();
     }
 
     public ThemaTO toThemaTO() {
