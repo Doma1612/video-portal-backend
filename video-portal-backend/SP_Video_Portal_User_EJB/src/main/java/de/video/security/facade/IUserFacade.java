@@ -6,5 +6,8 @@ import jakarta.ejb.Local;
 
 @Local
 public interface IUserFacade {
+
     public User findUserByName(String username);
+
+    public void userAnlegen(User user);
 }

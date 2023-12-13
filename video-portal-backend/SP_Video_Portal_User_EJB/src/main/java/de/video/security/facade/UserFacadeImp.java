@@ -14,4 +14,9 @@ public class UserFacadeImp implements IUserFacade {
     public User findUserByName(String name) {
         return userDAO.findUserByName(name);
     }
+
+    @Override
+    public void userAnlegen(User user) {
+        userDAO.save(user);
+    }
 }
