@@ -21,7 +21,9 @@ jobs:
 
       - name: Build with Maven
         shell: bash
-        run: mvn clean install
+        run: |
+            cd video-portal-backend
+            mvn clean install
   
       - name: Deploy to Payara Server
         shell: bash
