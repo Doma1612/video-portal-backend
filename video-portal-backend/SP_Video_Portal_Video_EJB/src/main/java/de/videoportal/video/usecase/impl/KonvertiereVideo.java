@@ -56,12 +56,12 @@ public class KonvertiereVideo implements IKonvertiereVideo {
         String[] stichwoerterList = stichwoerter.split(",\\s*");
         stichwoerter = "";
         // safe as lowercase to make it comparable
-        for (String stichwort: stichwoerterList) {
-        	stichwoerter += stichwort.toLowerCase() + ",";
+        for (String stichwort : stichwoerterList) {
+            stichwoerter += stichwort.toLowerCase() + ",";
         }
         // Get rid of last comma in the string
         stichwoerter = stichwoerter.substring(0, stichwoerter.length() - 1);
-        
+
         v.setMetaData(stichwoerter);
         v.setThema(thema);
         String[] unterKategorienArray = unterkategorien.split(",\\s*");

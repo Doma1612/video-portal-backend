@@ -46,7 +46,8 @@ public class LadeVideo implements ILadeVideo {
         List<VideoTO> videoList = new ArrayList<>();
         for (Video vid : allVids) {
             for (String stichwort : stichwoerterList) {
-                if (vid.getMetaData().contains(stichwort.toLowerCase())) {
+                if (vid.getMetaData().contains(stichwort.toLowerCase())
+                        || vid.getBeschreibung().contains(stichwort.toLowerCase())) {
                     VideoTO to = vid.toVideoTO();
                     to.setName(to.getName().replace("_", " "));
                     videoList.add(to);
