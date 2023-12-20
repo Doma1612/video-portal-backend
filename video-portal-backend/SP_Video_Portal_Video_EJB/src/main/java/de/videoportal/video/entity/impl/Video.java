@@ -34,7 +34,7 @@ public class Video {
     private Thema thema;
 
     @ElementCollection
-    @CollectionTable(name = "Unterkategorie", joinColumns = @JoinColumn(name = "videoId"))
+    @CollectionTable(name = "Unterkategorie_in_video", joinColumns = @JoinColumn(name = "videoId"))
     @Column(name = "unterkategorieId")
     private Collection<Long> unterKategorien;
 
