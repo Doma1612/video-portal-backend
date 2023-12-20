@@ -27,8 +27,8 @@ jobs:
   
       - name: Deploy to Payara Server
         shell: bash
-        run: mvn cargo:redeploy -Ppayara4x-remote -Dpayara.home=/home/kuehling/Schreibtisch/payara6/ -Dpayara.hostname=${{ secrets.PAYARA_HOST }} -Dpayara.username=${{ secrets.PAYARA_USER }} -Dpayara.password=${{ secrets.PAYARA_PASSWORD }} -Dpayara.adminPort=4848
-  
+        run: mvn cargo:redeploy -Pglassfish4x 
+        
       - name: Integration Test
         shell: bash
         run: mvn verify
