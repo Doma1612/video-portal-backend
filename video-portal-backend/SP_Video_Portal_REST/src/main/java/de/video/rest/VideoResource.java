@@ -112,6 +112,7 @@ public class VideoResource {
             @PathParam("dateiEndung") String dateiEndung,
             @PathParam("titel") String titel,
             @PathParam("thema") String thema,
+            @PathParam("beschreibung") String beschreibung,
             @PathParam("stichwoerter") String stichwoerter,
             @PathParam("unterkategorien") String unterkategorien,
             InputStream videoStream) {
@@ -124,7 +125,13 @@ public class VideoResource {
         }
         boolean anlegenUndKonvertierenHatGeklappt =
                 converter.empfangeVideoDaten(
-                        dateiEndung, titel, thema, stichwoerter, unterkategorien, videoBytes);
+                        dateiEndung,
+                        titel,
+                        thema,
+                        beschreibung,
+                        stichwoerter,
+                        unterkategorien,
+                        videoBytes);
         if (anlegenUndKonvertierenHatGeklappt) {
             return Response.ok().build();
         } else {
