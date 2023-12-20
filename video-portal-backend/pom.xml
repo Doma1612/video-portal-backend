@@ -43,7 +43,6 @@
     </properties>
   	
   <build>
-
     	    
     <plugins>
 
@@ -52,13 +51,13 @@
         <artifactId>cargo-maven2-plugin</artifactId>
         <configuration>
           <container>
-            <containerId>glassfish4x</containerId>
+            <containerId>domain1</containerId>
             <type>installed</type>
             <home>/home/kuehling/Schreibtisch/payara6/glassfish</home>
           </container>
           <configuration>
             <type>existing</type>
-            <home>/home/kuehling/Schreibtisch/payara6/glassfish/domains/domain1/</home>
+            <home>/home/kuehling/Schreibtisch/payara6/glassfish/domains/</home>
             <properties>
               <cargo.remote.username>kuehling</cargo.remote.username>
               <cargo.remote.password>New!York!99</cargo.remote.password>

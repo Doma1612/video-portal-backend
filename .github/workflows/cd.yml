@@ -27,7 +27,7 @@ jobs:
   
       - name: Deploy to Payara Server
         shell: bash
-        run: mvn cargo:redeploy -Pglassfish4x 
+        run: mvn cargo:redeploy -Pdomain1 
         
       - name: Integration Test
         shell: bash
