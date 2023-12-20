@@ -1,0 +1,34 @@
+name: Deploy to Payara Server
+
+on:
+  push:
+    branches:
+      - setup-cd-pipeline
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: '11'
+
+      - name: Build with Maven
+        shell: bash
+        run: mvn clean install
+  
+      - name: Deploy to Payara Server
+        shell: bash
+        run: mvn cargo:redeploy -Ppayara4x-remote -Dpayara.home=/home/kuehling/Schreibtisch/payara6/ -Dpayara.hostname=${{ secrets.PAYARA_HOST }} -Dpayara.username=${{ secrets.PAYARA_USER }} -Dpayara.password=${{ secrets.PAYARA_PASSWORD }} -Dpayara.adminPort=4848
+  
+      - name: Integration Test
+        shell: bash
+        run: mvn verify
+  
+        
