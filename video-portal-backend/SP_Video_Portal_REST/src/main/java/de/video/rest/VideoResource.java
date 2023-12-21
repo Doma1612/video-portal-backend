@@ -20,11 +20,9 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.List;
 import java.util.logging.Logger;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.io.output.ByteArrayOutputStream;
 
 @Path("video")
 @Stateless
@@ -145,16 +143,10 @@ public class VideoResource {
 
     @GET
     @Path("ladeVideo/{id}")
-    public OutputStream ladeVideosNachSuche(@PathParam("id") long id) {
+    @Produces("video/webm")
+    public Response ladeVideo(@PathParam("id") long id) {
         byte[] videoBytes = videoLoader.ladeVideo(id);
-        OutputStream outputStream = new ByteArrayOutputStream();
-        try {
-            outputStream.write(videoBytes);
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return outputStream;
+        return Response.ok(videoBytes, MediaType.APPLICATION_OCTET_STREAM).build();
     }
 
     @GET

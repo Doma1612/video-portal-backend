@@ -22,6 +22,7 @@ public class LadeVideo implements ILadeVideo {
 
     @Override
     public byte[] ladeVideo(long id) {
+        logger.warning("Das ist die ID nach der gesucht wird: " + id);
         Video vid = videoDAO.find(id);
         File vidPfad = new File(vid.getDateipfad());
         byte[] videoBytes = null;
