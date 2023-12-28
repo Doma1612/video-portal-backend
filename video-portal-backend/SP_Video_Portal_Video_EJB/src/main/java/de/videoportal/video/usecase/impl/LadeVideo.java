@@ -22,6 +22,7 @@ public class LadeVideo implements ILadeVideo {
 
     @Override
     public byte[] ladeVideo(long id) {
+        logger.warning("Das ist die ID nach der gesucht wird: " + id);
         Video vid = videoDAO.find(id);
         File vidPfad = new File(vid.getDateipfad());
         byte[] videoBytes = null;
@@ -46,7 +47,8 @@ public class LadeVideo implements ILadeVideo {
         List<VideoTO> videoList = new ArrayList<>();
         for (Video vid : allVids) {
             for (String stichwort : stichwoerterList) {
-                if (vid.getMetaData().contains(stichwort)) {
+                if (vid.getMetaData().contains(stichwort.toLowerCase())
+                        || vid.getBeschreibung().contains(stichwort.toLowerCase())) {
                     VideoTO to = vid.toVideoTO();
                     to.setName(to.getName().replace("_", " "));
                     videoList.add(to);

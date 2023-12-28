@@ -13,6 +13,7 @@ public interface IKonvertiereVideo {
             String dateiEndung,
             String titel,
             String thema,
+            String beschreibung,
             String stichwoerter,
             String unterkategorien,
             byte[] videoBytes);

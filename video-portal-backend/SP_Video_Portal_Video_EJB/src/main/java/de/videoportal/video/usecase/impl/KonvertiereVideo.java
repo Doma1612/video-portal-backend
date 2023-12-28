@@ -30,6 +30,7 @@ public class KonvertiereVideo implements IKonvertiereVideo {
             String dateiEndung,
             String titel,
             String themaString,
+            String beschreibung,
             String stichwoerter,
             String unterkategorien,
             byte[] videoBytes) {
@@ -53,7 +54,7 @@ public class KonvertiereVideo implements IKonvertiereVideo {
                 thema = t;
             }
         }
-
+        v.setBeschreibung(beschreibung);
         v.setMetaData(stichwoerter);
         v.setThema(thema);
         String[] unterKategorienArray = unterkategorien.split(",\\s*");
