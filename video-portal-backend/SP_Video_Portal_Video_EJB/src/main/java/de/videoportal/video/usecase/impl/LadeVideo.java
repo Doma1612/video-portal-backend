@@ -1,4 +1,4 @@
-/* (C)2023 */
+/* (C)2023-2024 */
 package de.videoportal.video.usecase.impl;
 
 import de.videoportal.video.dao.VideoDAO;
@@ -47,8 +47,8 @@ public class LadeVideo implements ILadeVideo {
         List<VideoTO> videoList = new ArrayList<>();
         for (Video vid : allVids) {
             for (String stichwort : stichwoerterList) {
-                if (vid.getMetaData().contains(stichwort.toLowerCase())
-                        || vid.getBeschreibung().contains(stichwort.toLowerCase())) {
+                if (vid.getMetaData().toLowerCase().contains(stichwort.toLowerCase())
+                        || vid.getBeschreibung().toLowerCase().contains(stichwort.toLowerCase())) {
                     VideoTO to = vid.toVideoTO();
                     to.setName(to.getName().replace("_", " "));
                     videoList.add(to);
