@@ -1,4 +1,4 @@
-/* (C)2023 */
+/* (C)2023-2024 */
 package de.video.security;
 
 import de.video.jwt.LogbackLogger;
@@ -28,14 +28,6 @@ public class UserService {
 
     @Inject @LogbackLogger private Logger logger;
 
-    /* Username und Password im Body des request --> sicherste Methode, da body idR ssl-Verschlüsselt
-    *
-    * curl -X POST http://localhost:8080/bankREST_v2-1.0/api/users/login3 \
-    -H 'Accept: application/json' \
-    -H 'Content-Type: application/json' \
-    -d '{"username": "chef", "password": "chef"}'
-    */
-
     @POST
     @Path("/login")
     @Produces(MediaType.APPLICATION_JSON)
@@ -46,10 +38,11 @@ public class UserService {
         try {
             user = authenticate(credentials.getUsername(), credentials.getPassword());
         } catch (Exception e) {
-            return Response.status(Response.Status.UNAUTHORIZED).build();
+            return Response.status(Response.Status.UNAUTHORIZED)
+                    .entity("Benutzername oder Passwort falsch")
+                    .build();
         }
-
-        return Response.ok("Benutzer erfolgreich authentifiziert").build();
+        return Response.ok(user).build();
     }
 
     private User authenticate(String username, String password) throws Exception {
