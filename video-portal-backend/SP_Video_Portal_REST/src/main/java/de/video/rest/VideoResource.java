@@ -1,4 +1,4 @@
-/* (C)2023 */
+/* (C)2023-2024 */
 package de.video.rest;
 
 import de.videoportal.video.entity.ThemaTO;
@@ -43,7 +43,6 @@ public class VideoResource {
 
     @POST
     @Path("themaAnlegen")
-    // @JWTTokenNeeded(Permissions = Role.ADMIN)
     public Response themaAnlegen(ThemaTO themaTO) {
         themaVerwalten.themaAnlegen(themaTO);
         return Response.ok().build();
@@ -51,7 +50,6 @@ public class VideoResource {
 
     @POST
     @Path("themaUpdate")
-    // @JWTTokenNeeded(Permissions = Role.ADMIN)
     public Response themaUpdate(ThemaTO themaTO) {
         themaVerwalten.themaUpdaten(themaTO);
         return Response.ok().build();
@@ -72,7 +70,6 @@ public class VideoResource {
 
     @POST
     @Path("uKategorieAnlegen")
-    // @JWTTokenNeeded(Permissions = Role.ADMIN)
     public Response uKategorieAnlegen(UnterkategorieTO unterkategorieTO) {
         unterkategorieVerwalten.unterkategorieAnlegen(unterkategorieTO);
         return Response.ok().build();
@@ -80,7 +77,6 @@ public class VideoResource {
 
     @POST
     @Path("uKategorieUpdate")
-    // @JWTTokenNeeded(Permissions = Role.ADMIN)
     public Response uKategorieUpdate(UnterkategorieTO unterkategorieTO) {
         unterkategorieVerwalten.unterkategorieAnlegen(unterkategorieTO);
         return Response.ok().build();
@@ -88,7 +84,6 @@ public class VideoResource {
 
     @GET
     @Path("uKategorieLoeschen/{id}")
-    // @JWTTokenNeeded(Permissions = Role.ADMIN)
     public Response uKategorieLoeschen(@PathParam("id") long id) {
         unterkategorieVerwalten.unterkategorieLoeschen(id);
         return Response.ok().build();
