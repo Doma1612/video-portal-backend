@@ -42,6 +42,7 @@ public class UserService {
                     .entity("Benutzername oder Passwort falsch")
                     .build();
         }
+        user.setPassword("0");
         return Response.ok(user).build();
     }
 
