@@ -42,8 +42,12 @@ public class UserService {
                     .entity("Benutzername oder Passwort falsch")
                     .build();
         }
-        user.setPassword("0");
-        return Response.ok(user).build();
+        
+        UserFrontend userDaten = new UserFrontend();
+        userDaten.setName(user.getUsername());
+        userDaten.setRolle(user.getRolle());
+      
+        return Response.ok(userDaten).build();
     }
 
     private User authenticate(String username, String password) throws Exception {
